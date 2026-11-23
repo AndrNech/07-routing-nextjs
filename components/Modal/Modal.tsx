@@ -5,10 +5,11 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface ModalProps {
+  onClose: () => void;
   children: React.ReactNode;
 }
 
-export default function Modal({ children }: ModalProps) {
+export default function Modal({ onClose, children }: ModalProps) {
   const router = useRouter();
 
   useEffect(() => {
@@ -25,20 +26,13 @@ export default function Modal({ children }: ModalProps) {
       window.removeEventListener('keydown', escHandler);
       document.body.style.overflow = 'auto';
     };
-  }, [router]);
+  }, [onClose]);
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      router.back();
+      onClose();
     }
   };
-
-  // const modalRoot = document.getElementById('modal-root');
-
-  // if(!modalRoot) {
-  //   alert("Couldn't display modal")
-  //   return null;
-  // }
 
   return (
     <div
@@ -48,24 +42,9 @@ export default function Modal({ children }: ModalProps) {
       onClick={handleBackdropClick}
     >
       <div className={css.modal}>
-        <button className={css.closeBtn} onClick={() => router.back()}>Close</button>
+        <button className={css.closeBtn} onClick={onClose}>Close</button>
       {children}
       </div>
     </div>
   );
 }
-
-
-// return createPortal(
-//   <div
-//     className={css.backdrop}
-//     role="dialog"
-//     aria-modal="true"
-//     onClick={handleBackdropClick}
-//   >
-//     <div className={css.modal}>
-//     {children}
-//     </div>
-//   </div>,
-//   modalRoot as HTMLDivElement
-// );

@@ -31,7 +31,7 @@ export default function NotePreviewClient() {
     const note = noteQ.data;
 
     return (
-      <Modal>
+      <Modal onClose={() => router.back()}>
         <main className={css.main}>
           <div className={css.container}>
             <div className={css.item}>
