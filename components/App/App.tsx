@@ -68,7 +68,7 @@ function App() {
           }}>Create note +</button>
       </header>
       {isSuccess && data.notes.length > 0 && <NoteList notes={data.notes} />}
-      {isModalOpen && <Modal>
+      {isModalOpen && <Modal onClose={closeModalHandler}>
         <NoteForm onClose={closeModalHandler} />
       </Modal>}
     </div>
