@@ -85,7 +85,7 @@ export default function NotesClient({ tag = undefined}: NotesClientProps) {
       )}
 
       {isModalOpen && (
-        <Modal onClose={closeModalHandler}>
+        <Modal>
           <NoteForm onClose={closeModalHandler} />
         </Modal>
       )}
